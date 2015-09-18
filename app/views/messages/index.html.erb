@@ -1,39 +1,52 @@
-<h3>メッセージ入力</h3>
-<%= form_for(Message.new) do |f| %>
-<div class="input-group">
-	<span class="input-group-addon">ユーザー名</span>
-  <%= f.text_field :name, class:"form-control" %>
-</div>
-<div class="input-group">
-	<span class="input-group-addon">メッセージ</span>
-  <%= f.text_area :body, class:"form-control" %>
-</div>
-<br>
-<%= f.submit class: "btn btn-sm btn-primary btn-block" %>
-<% end %>
+  <h3>メッセージ入力</h3>
+  <form class="form-horizontal row">
+    <%= form_for(Message.new) do |f| %>
+    <div class="form-group">
+      <label for="inputUserName" class="col-lg-2 control-label">ユーザー名</label>
+      <div class="col-lg-10">
+        <%= f.text_field :name, class:"form-control", id:"inputUserName" %>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputMessage" class="col-lg-2 control-label">メッセージ</label>
+      <div class="col-lg-10">
+        <%= f.text_area :body, class:"form-control", id:"inputMessage" %>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-lg-offset-2 col-lg-10">
+        <%= f.submit class: "btn btn-sm btn-primary btn-block" %>
+        <% end %>
+      </div>
+    </div>
+  </form>
 
 <hr>
 
-<div class="panel panel-default">
-  <div class="panel-heading">
+
+
+<div class="panel panel-default row">
+  <div class="panel-heading col-lg-12">
     新着メッセージ一覧
   </div>
 
-  <div class="panel-body" style="word-wrap:break-word">
+  <div class="panel-body col-lg-12" style="word-wrap:break-word">
     <% @messages.reverse_each do |message| %>
       <span class="label label-info">
-        <% if message.name %>
+        <% unless message.name.blank? %>
           <%= message.name %>
         <% else %>
-          <%= puts "nanasi" %>
+          <%= "名無し" %>
         <% end %>
       </span>
       <p>
         <%= message.body %>
       </p>
       <% if message != @messages.first %>
-      <hr>
+        <hr>
       <% end %>
     <% end %>
   </div>
 </div>
+
+
