@@ -1,0 +1,10 @@
+#app/config/locales/models/ja.yml
+ja:
+  activerecord:
+    models:
+      message: メッセージ
+    attributes:
+      message:
+        name: ユーザー名
+        age : 年齢
+        body: メッセージ

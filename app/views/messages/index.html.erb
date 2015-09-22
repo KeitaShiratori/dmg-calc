@@ -1,9 +1,7 @@
+<%= YAML.load_file(Rails.root.join("config/locales/models/ja.yml")) %>
+
 <div class="row">
   <div class="col-md-6">
-    <div class="adsense hidden-lg hidden-md">
-      <%= render 'adsense_banner_unit' %>
-      <%= render 'adsense_link_unit' %>
-    </div>
     <div class="panel panel-default">
       <div class="panel-heading">
         メッセージ入力
@@ -14,7 +12,10 @@
       </div>    
     </div>
     <div class="adsense hidden-sm hidden-xs">
-      <%= render 'adsense_square_unit' %>
+      <% if @message.errors.blank? %>
+        <!--見栄えのため、バリデーションエラーがないときだけ表示-->
+        <%= render 'adsense_square_unit' %>
+      <% end %>
       <%= render 'adsense_banner_unit' %>
       <%= render 'adsense_link_unit' %>
     </div>
@@ -53,6 +54,10 @@
           <% end %>
         <% end %>
       </div>
+    </div>
+    <div class="adsense hidden-lg hidden-md">
+      <%= render 'adsense_banner_unit' %>
+      <%= render 'adsense_link_unit' %>
     </div>
   </div>
 </div>
