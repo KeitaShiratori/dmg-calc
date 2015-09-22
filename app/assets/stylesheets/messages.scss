@@ -5,3 +5,21 @@
   display: inline-block;
   border: 1px solid #f00;
 }
+
+#message-list{
+  margin-bottom:30px;
+}
+
+#message-list .panel-body{
+  height: 75vh;
+  word-wrap: break-word;
+  overflow-y: scroll;
+}
+
+@media (max-width: 992px) {
+  #message-list .panel-body{
+    height: auto;
+    word-wrap: break-word;
+    overflow-y: hidden;
+  }
+}

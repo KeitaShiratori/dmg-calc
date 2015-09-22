@@ -1,32 +1,49 @@
-<h3>メッセージ入力</h3>
-
-<% #部分テンプレートを読み込んでいる %>
-<%= render 'form' %>
-
-<hr>
-
-<div class="panel panel-default row">
-  <div class="panel-heading col-lg-12">
-    新着メッセージ一覧
+<div class="row">
+  <div class="col-md-6">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        メッセージ入力
+      </div>
+      <div class="panel-body" >
+        <% #部分テンプレートを読み込んでいる %>
+        <%= render 'form' %>
+      </div>    
+    </div>
   </div>
-  <div class="panel-body col-lg-12" style="word-wrap:break-word">
-    <% @messages.reverse_each do |message| %>
-      <p class="label label-info">
-        <% unless message.name.blank? %>
-          <%= message.name + "(" + message.age.to_s + ")" %>
-        <% else %>
-          <%= "名無し" + "(" + message.age.to_s + ")" %>
+  <div class="col-md-6">
+    <div class="panel panel-default" id="message-list">
+      <div class="panel-heading">
+        新着メッセージ一覧
+      </div>
+      <div class="panel-body" >
+        <% if @messages.blank? %>
+          <h4>ようこそ！最初のメッセージを投稿してみませんか？</h4>
         <% end %>
-      </p>
-      &nbsp
-      <%= link_to '<span class="label label-success glyphicon glyphicon-pencil">edit</span>'.html_safe , edit_message_path(message) %>
-      <%= link_to '<span class="label label-danger glyphicon glyphicon-trash">destroy</span>'.html_safe , message , method: :delete, data: { confirm: '削除してもよろしいですか？' } %>
-      <p>
-        <%= message.body %>
-      </p>
-      <% if message != @messages.first %>
-        <hr>
-      <% end %>
-    <% end %>
+        <% @messages.reverse_each do |message| %>
+          <p class="label label-info">
+            <% if message.name.presence %>
+              <%= message.name %>
+            <% else %>
+              <%= "名無し" %>
+            <% end %>
+  
+            <% if message.age.presence %>
+              <%= "(" + message.age.to_s+ ")" %>
+            <% else %>
+              <%= "(年齢不詳)" %>
+            <% end %>
+          </p>
+          &nbsp
+          <%= link_to '<span class="label label-success glyphicon glyphicon-pencil">edit</span>'.html_safe , edit_message_path(message) %>
+          <%= link_to '<span class="label label-danger glyphicon glyphicon-trash">destroy</span>'.html_safe , message , method: :delete, data: { confirm: '削除してもよろしいですか？' } %>
+          <p>
+            <%= message.body %>
+          </p>
+          <% if message != @messages.first %>
+            <hr>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
   </div>
 </div>
