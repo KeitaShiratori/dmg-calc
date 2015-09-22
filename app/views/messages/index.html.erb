@@ -1,5 +1,9 @@
 <div class="row">
   <div class="col-md-6">
+    <div class="adsense hidden-lg hidden-md">
+      <%= render 'adsense_banner_unit' %>
+      <%= render 'adsense_link_unit' %>
+    </div>
     <div class="panel panel-default">
       <div class="panel-heading">
         メッセージ入力
@@ -8,6 +12,11 @@
         <% #部分テンプレートを読み込んでいる %>
         <%= render 'form' %>
       </div>    
+    </div>
+    <div class="adsense hidden-sm hidden-xs">
+      <%= render 'adsense_square_unit' %>
+      <%= render 'adsense_banner_unit' %>
+      <%= render 'adsense_link_unit' %>
     </div>
   </div>
   <div class="col-md-6">
