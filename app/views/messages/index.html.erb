@@ -47,3 +47,55 @@
     </div>
   </div>
 </div>
+<div class="row">
+  <div class="hidden-lg hidden-md page-top" >
+    <a href="#"><span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></a>
+  </div>
+</div>
+
+
+<script type="text/javascript">
+// スムーズスクロール
+$(function(){
+	// ページ内リンクをクリックすると
+	$('a[href^=#]').click(function(){
+ 		// スクロールスピード
+ 		var speed = 500;
+ 		// クリックしたリンク先を保存
+		var href= $(this).attr("href");
+		// クリックしたリンク先が#または空のときは
+		var target = $(href == "#" || href == "" ? 'html' : href);
+		// トップへ移動する
+		var position = target.offset().top;
+		// リンク先へスムーズに移動する
+		$("html, body").animate({scrollTop:position}, speed, "swing");
+		return false;
+	});
+});
+// page Topフェードイン・アウト
+$(function(){
+	$(window).bind("scroll", function() {
+	if ($(this).scrollTop() > 50) { 
+		$(".page-top").fadeIn();
+	} else {
+		$(".page-top").fadeOut();
+	}
+	// ドキュメントの高さ
+	scrollHeight = $(document).height();
+	// ウィンドウの高さ+スクロールした高さ→ 現在のトップからの位置
+	scrollPosition = $(window).height() + $(window).scrollTop();
+	// フッターの高さ
+	footHeight = $("footer").height();
+	
+	// スクロール位置がフッターまで来たら
+	if ( scrollHeight - scrollPosition  <= footHeight ) {
+		// ページトップリンクをフッターに固定
+		$(".page-top a").css({"position":"absolute","bottom": "0px"});
+	} else {
+		// ページトップリンクを右下に固定
+		$(".page-top a").css({"position":"fixed","bottom": "0px"});
+		}
+	});
+});
+</script>
+

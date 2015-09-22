@@ -6,14 +6,51 @@
   border: 1px solid #f00;
 }
 
+
+/* メッセージ一覧エリアのスクロール */
 #message-list{
   margin-bottom:30px;
 }
 
 #message-list .panel-body{
-  height: 75vh;
+  height: calc(100vh - 187px);
   word-wrap: break-word;
   overflow-y: scroll;
+}
+
+/* ページトップへ戻る */
+.page-top {
+  	display:none;
+    position:relative;
+    width:100%;
+    max-width:900px;
+    height:0;
+    margin:0 auto;
+}
+
+.page-top a {
+    position: fixed;
+    bottom: 0px;
+    left:-68px;
+    margin-left:100%;
+    display: block;
+    width: 66px;
+    /* ↓以下はリンク装飾↓ */
+    padding:1rem 0;
+    color: #fff;
+    background-color:#3498db;
+    text-align:center;
+    outline:none;
+    text-decoration: none;
+    z-index:9999;
+    border-radius:3px 3px 0 0;
+}
+
+footer {
+  border-top: 1px solid#e7e7e7;
+  background-color: #f8f8f8;
+  text-align: center;
+  padding: 10px;
 }
 
 @media (max-width: 992px) {
