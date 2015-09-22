@@ -17,9 +17,11 @@
   </nav>
   <div class="container">
     <% if notice %>
-      <div class="alert alert-info">
-        <%= notice data: { confirm: '削除してもよろしいですか？' } %>
-      </div>
+      <!--メッセージをふわっと表示して自然に消すjsメソッド-->
+      <!--http://alfredobarron.github.io/smoke/#/-->
+      <script>
+        $.smkAlert({text:'<%= notice %>', type:'success'});
+      </script>
     <% end %>
 
     <%= yield %>
