@@ -41,7 +41,7 @@
               <%= "(年齢不詳)" %>
             <% end %>
           </p>
-          &nbsp
+          &nbsp;
           <%= link_to '<span class="label label-success glyphicon glyphicon-pencil">edit</span>'.html_safe , edit_message_path(message) %>
           <%= link_to '<span class="label label-danger glyphicon glyphicon-trash">destroy</span>'.html_safe , message , method: :delete, data: { confirm: '削除してもよろしいですか？' } %>
           <p>
