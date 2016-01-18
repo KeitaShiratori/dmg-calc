@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>MessageBoard</title>
+  <title><%= I18n.t('application.head.title') %></title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
@@ -11,7 +10,7 @@
   <nav class="navbar navbar-default">
     <div class="container">
       <div class="navbar-header">
-        <a class="navbar-brand" href="/">Message Board</a>
+        <a class="navbar-brand" href="/"><%= I18n.t('application.navbar.title') %></a>
       </div>
     </div>
   </nav>

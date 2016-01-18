@@ -1,113 +1,205 @@
+<!-- ダメージ電卓 -->
 <div class="row">
   <div class="col-md-6">
     <div class="panel panel-default">
       <div class="panel-heading">
-        メッセージ入力
+        <%= I18n.t('index.calc.header.title') %>
       </div>
       <div class="panel-body" >
-        <% #部分テンプレートを読み込んでいる %>
-        <%= render 'form' %>
+        <div class="form-horizontal">
+          <%= form_for(@message) do |f| %>
+            <div class="form-group">
+              <label class="control-label col-sm-6 col-md-5"><%= I18n.t('index.calc.form.name') %></label>
+              <div class="col-sm-6 col-md-7">
+                <%= f.text_field :name, class:"form-control input", id:"name", placeholder: I18n.t('index.calc.form.placeholder.name') %>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-6 col-md-5"><%= I18n.t('index.calc.form.atk') %></label>
+              <div class="col-sm-6 col-md-7">
+                <%= f.text_field :name, class:"form-control input", id:"atk", placeholder: I18n.t('index.calc.form.placeholder.atk') %>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-6 col-md-5"><%= I18n.t('index.calc.form.ability1') %></label>
+              <div class="col-sm-6 col-md-7"><%= f.text_field :name, class:"form-control input", id:"ability1", placeholder: I18n.t('index.calc.form.placeholder.ability1') %></div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-6 col-md-5"><%= I18n.t('index.calc.form.ability2') %></label>
+              <div class="col-sm-6 col-md-7"><%= f.text_field :name, class:"form-control input", id:"ability2", placeholder: I18n.t('index.calc.form.placeholder.ability2') %></div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-6 col-md-5"><%= I18n.t('index.calc.form.ability3') %></label>
+              <div class="col-sm-6 col-md-7"><%= f.text_field :name, class:"form-control input", id:"ability3", placeholder: I18n.t('index.calc.form.placeholder.ability3') %></div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-6 col-md-5"><%= I18n.t('index.calc.form.ability4') %></label>
+              <div class="col-sm-6 col-md-7"><%= f.text_field :name, class:"form-control input", id:"ability4", placeholder: I18n.t('index.calc.form.placeholder.ability4') %></div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-6 col-md-5"><%= I18n.t('index.calc.form.leader_skill') %></label>
+              <div class="col-sm-6 col-md-7"><%= f.text_field :name, class:"form-control input", id:"leader_skill", placeholder: I18n.t('index.calc.form.placeholder.leader_skill') %></div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-sm-6 col-md-5"><%= I18n.t('index.calc.form.friend_skill') %></label>
+              <div class="col-sm-6 col-md-7"><%= f.text_field :name, class:"form-control input", id:"friend_skill", placeholder: I18n.t('index.calc.form.placeholder.friend_skill') %></div>
+            </div>
+          <% end %>
+        </div>
       </div>    
-    </div>
-    <div class="adsense hidden-sm hidden-xs">
-      <% if @message.errors.blank? %>
-        <!--見栄えのため、バリデーションエラーがないときだけ表示-->
-        <%= render 'adsense_square_unit' %>
-      <% end %>
-      <%= render 'adsense_banner_unit' %>
-      <%= render 'adsense_link_unit' %>
     </div>
   </div>
   <div class="col-md-6">
-    <div class="panel panel-default" id="message-list">
+    <div class="panel panel-default">
       <div class="panel-heading">
-        新着メッセージ一覧
+        <%= I18n.t('index.calc.header.dmg') %>
+        <button class="btn btn-default pull-right dmgToggle">計算式表示切替</button>
       </div>
       <div class="panel-body" >
-        <% if @messages.blank? %>
-          <h4>ようこそ！最初のメッセージを投稿してみませんか？</h4>
-        <% end %>
-        <% @messages.reverse_each do |message| %>
-          <p class="label label-info">
-            <% if message.name.presence %>
-              <%= message.name %>
-            <% else %>
-              <%= "名無し" %>
-            <% end %>
-  
-            <% if message.age.presence %>
-              <%= "(" + message.age.to_s+ ")" %>
-            <% else %>
-              <%= "(年齢不詳)" %>
-            <% end %>
-          </p>
-          &nbsp;
-          <%= link_to '<span class="label label-success glyphicon glyphicon-pencil">edit</span>'.html_safe , edit_message_path(message) %>
-          <%= link_to '<span class="label label-danger glyphicon glyphicon-trash">destroy</span>'.html_safe , message , method: :delete, data: { confirm: '削除してもよろしいですか？' } %>
-          <p>
-            <%= message.body %>
-          </p>
-          <% if message != @messages.first %>
-            <hr>
-          <% end %>
-        <% end %>
+        <p>
+          基礎ATK： <span id="dmg-atk" class="caption" >0</span>
+        </p>
+        <div class="collapse in dmgCollapse">
+          <p class="caption"> <%= I18n.t('index.calc.caption.dmg_atk') %></p>
+          <p class="caption"> = <span class="atk">10,000</span> * <span class="leader-skill">1</span> * <span class="friend-skill">1</span></p>
+          <br>
+        </div>
+        <p>
+          通常接触ダメージ：<span id="dmg-normal" class="caption">0</span>
+        </p>
+        <div class="collapse in dmgCollapse">
+          <p class="caption"> <%= I18n.t('index.calc.caption.dmg_normal') %></p>
+          <p class="caption"> = <span class="dmg-atk">10,000</span> * (1 + <span class="ability1">0</span>) * <span class="ability2">1</span></p>
+          <br>
+        </div>
+        <p>
+          スマッシュダメージ： <span id="dmg-smash" class="dmg" >0</span>
+        </p>
+        <div class="collapse in dmgCollapse">
+          <p class="caption"> <%= I18n.t('index.calc.caption.dmg_smash') %></p>
+          <p class="caption"> = <span class="dmg-normal">10,000</span> * (1.5 + <span class="ability3">0</span>) * <span class="ability4">1</span></p>
+          <br>
+        </div>
       </div>
     </div>
-    <div class="adsense hidden-lg hidden-md">
-      <%= render 'adsense_banner_unit' %>
-      <%= render 'adsense_link_unit' %>
-    </div>
-  </div>
-</div>
-<div class="row">
-  <div class="hidden-lg hidden-md page-top" >
-    <a href="#"><span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></a>
   </div>
 </div>
 
 
-<script type="text/javascript">
-// スムーズスクロール
-$(function(){
-	// ページ内リンクをクリックすると
-	$('a[href^=#]').click(function(){
- 		// スクロールスピード
- 		var speed = 500;
- 		// クリックしたリンク先を保存
-		var href= $(this).attr("href");
-		// クリックしたリンク先が#または空のときは
-		var target = $(href == "#" || href == "" ? 'html' : href);
-		// トップへ移動する
-		var position = target.offset().top;
-		// リンク先へスムーズに移動する
-		$("html, body").animate({scrollTop:position}, speed, "swing");
-		return false;
-	});
-});
-// page Topフェードイン・アウト
-$(function(){
-	$(window).bind("scroll", function() {
-	if ($(this).scrollTop() > 50) { 
-		$(".page-top").fadeIn();
-	} else {
-		$(".page-top").fadeOut();
-	}
-	// ドキュメントの高さ
-	scrollHeight = $(document).height();
-	// ウィンドウの高さ+スクロールした高さ→ 現在のトップからの位置
-	scrollPosition = $(window).height() + $(window).scrollTop();
-	// フッターの高さ
-	footHeight = $("footer").height();
-	
-	// スクロール位置がフッターまで来たら
-	if ( scrollHeight - scrollPosition  <= footHeight ) {
-		// ページトップリンクをフッターに固定
-		$(".page-top a").css({"position":"absolute","bottom": "0px"});
-	} else {
-		// ページトップリンクを右下に固定
-		$(".page-top a").css({"position":"fixed","bottom": "0px"});
-		}
-	});
-});
+
+<script>
+  var atk          = 10000;
+  var ability1     = 0;
+  var ability2     = 1;
+  var ability3     = 0;
+  var ability4     = 1;
+  var leader_skill = 1;
+  var friend_skill = 1;
+  var dmg_atk      = 0;
+  var dmg_normal   = 0;
+  var dmg_smash    = 0;
+
+  function parseInput(element, defaultVal) {
+    var ret = defaultVal;
+
+    var val = $(element).val();
+    if(!val || !val.match(/^[０-９0-9\.．]+$/g)){
+      $(element).val("");
+      return ret;
+    }
+    
+    var han = val.replace(/[０-９．]/g,function(s){return String.fromCharCode(s.charCodeAt(0)-0xFEE0)});
+    if(val.match(/[０-９]/g)){
+        $(element).val(han);
+    }
+    
+    ret = parseFloat($(element).val());
+    return ret;
+  }
+
+  function dmg_calc() {
+    atk          = parseInput('#atk', 10000);
+    ability1     = parseInput('#ability1', 0);
+    ability2     = parseInput('#ability2', 1);
+    ability3     = parseInput('#ability3', 0);
+    ability4     = parseInput('#ability4', 1);
+    leader_skill = parseInput('#leader_skill', 1);
+    friend_skill = parseInput('#friend_skill', 1);
+
+    dmg_atk = atk * leader_skill * friend_skill;
+    dmg_normal = dmg_atk * (1 + ability1) * ability2;
+    dmg_smash = dmg_normal * (1.5 + ability3) * ability4;
+
+    $('#dmg-atk').text(Math.floor(dmg_atk).toLocaleString());
+    $('#dmg-normal').text(Math.floor(dmg_normal).toLocaleString());
+    $('#dmg-smash').text(Math.floor(dmg_smash).toLocaleString());
+    
+    $('.atk').text(atk.toLocaleString());
+    $('.leader-skill').text(leader_skill.toLocaleString());
+    $('.friend-skill').text(friend_skill.toLocaleString());
+    $('.ability1').text(ability1.toLocaleString());
+    $('.ability2').text(ability2.toLocaleString());
+    $('.ability3').text(ability3.toLocaleString());
+    $('.ability4').text(ability4.toLocaleString());
+    $('.dmg-atk').text(dmg_atk.toLocaleString());
+    $('.dmg-normal').text(dmg_normal.toLocaleString());
+    $('.dmg-smash').text(dmg_smash.toLocaleString());
+  }
+
+  $(document).ready( function(){
+  // ページ読み込み時に実行したい処理
+    dmg_calc();
+  });
+
+  $('.input').change(function() {
+    dmg_calc();
+  });
+
+  $(".dmgToggle").click(function(){
+    $(".dmgCollapse").collapse('toggle');
+  });
+
+  // スムーズスクロール
+  $(function(){
+  	// ページ内リンクをクリックすると
+  	$('a[href^=#]').click(function(){
+   		// スクロールスピード
+   		var speed = 500;
+   		// クリックしたリンク先を保存
+  		var href= $(this).attr("href");
+  		// クリックしたリンク先が#または空のときは
+  		var target = $(href == "#" || href == "" ? 'html' : href);
+  		// トップへ移動する
+  		var position = target.offset().top;
+  		// リンク先へスムーズに移動する
+  		$("html, body").animate({scrollTop:position}, speed, "swing");
+  		return false;
+  	});
+  });
+  // page Topフェードイン・アウト
+  $(function(){
+  	$(window).bind("scroll", function() {
+  	if ($(this).scrollTop() > 50) { 
+  		$(".page-top").fadeIn();
+  	} else {
+  		$(".page-top").fadeOut();
+  	}
+  	// ドキュメントの高さ
+  	scrollHeight = $(document).height();
+  	// ウィンドウの高さ+スクロールした高さ→ 現在のトップからの位置
+  	scrollPosition = $(window).height() + $(window).scrollTop();
+  	// フッターの高さ
+  	footHeight = $("footer").height();
+  	
+  	// スクロール位置がフッターまで来たら
+  	if ( scrollHeight - scrollPosition  <= footHeight ) {
+  		// ページトップリンクをフッターに固定
+  		$(".page-top a").css({"position":"absolute","bottom": "0px"});
+  	} else {
+  		// ページトップリンクを右下に固定
+  		$(".page-top a").css({"position":"fixed","bottom": "0px"});
+  		}
+  	});
+  });
 </script>
 
