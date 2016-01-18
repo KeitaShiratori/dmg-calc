@@ -54,6 +54,8 @@
       <div class="panel-heading">
         <%= I18n.t('index.calc.header.dmg') %>
         <button class="btn btn-default pull-right dmgToggle">計算式表示切替</button>
+        <button class="btn btn-default pull-right downCompatiToggle">ニガテ属性</button>
+        <button class="btn btn-default pull-right upCompatiToggle">得意属性</button>
       </div>
       <div class="panel-body" >
         <p>
@@ -68,8 +70,8 @@
           通常接触ダメージ：<span id="dmg-normal" class="caption">0</span>
         </p>
         <div class="collapse in dmgCollapse">
-          <p class="caption"> <%= I18n.t('index.calc.caption.dmg_normal') %></p>
-          <p class="caption"> = <span class="dmg-atk">10,000</span> * (1 + <span class="ability1">0</span>) * <span class="ability2">1</span></p>
+          <p class="caption"> <%= I18n.t('index.calc.caption.dmg_normal') %><span class="compati hidden"> * 属性相性</span></p>
+          <p class="caption"> = <span class="dmg-atk">10,000</span> * (1 + <span class="ability1">0</span>) * <span class="ability2">1</span><span class="upCompati hidden"> * 1.5</span><span class="downCompati hidden"> / 1.5</span></p>
           <br>
         </div>
         <p>
@@ -88,16 +90,17 @@
 
 
 <script>
-  var atk          = 10000;
-  var ability1     = 0;
-  var ability2     = 1;
-  var ability3     = 0;
-  var ability4     = 1;
-  var leader_skill = 1;
-  var friend_skill = 1;
-  var dmg_atk      = 0;
-  var dmg_normal   = 0;
-  var dmg_smash    = 0;
+  var atk           = 10000;
+  var ability1      = 0;
+  var ability2      = 1;
+  var ability3      = 0;
+  var ability4      = 1;
+  var leader_skill  = 1;
+  var friend_skill  = 1;
+  var dmg_atk       = 0;
+  var dmg_normal    = 0;
+  var dmg_smash     = 0;
+  var compatibility = 1;
 
   function parseInput(element, defaultVal) {
     var ret = defaultVal;
@@ -127,7 +130,7 @@
     friend_skill = parseInput('#friend_skill', 1);
 
     dmg_atk = atk * leader_skill * friend_skill;
-    dmg_normal = dmg_atk * (1 + ability1) * ability2;
+    dmg_normal = dmg_atk * (1 + ability1) * ability2 * compatibility;
     dmg_smash = dmg_normal * (1.5 + ability3) * ability4;
 
     $('#dmg-atk').text(Math.floor(dmg_atk).toLocaleString());
@@ -157,6 +160,36 @@
 
   $(".dmgToggle").click(function(){
     $(".dmgCollapse").collapse('toggle');
+  });
+
+  $(".upCompatiToggle").click(function(){
+    if (compatibility == 1.5){
+      compatibility = 1;
+      $(".upCompati").addClass("hidden");
+      $(".compati").addClass("hidden");
+    } else{
+      compatibility = 1.5;
+      $(".compati").removeClass("hidden");
+      $(".upCompati").removeClass("hidden");
+
+      $(".downCompati").addClass("hidden");
+    }
+    dmg_calc();
+  });
+
+  $(".downCompatiToggle").click(function(){
+    if (compatibility == 2/3){
+      compatibility = 1;
+      $(".downCompati").addClass("hidden");
+      $(".compati").addClass("hidden");
+    } else{
+      compatibility = 2/3;
+      $(".compati").removeClass("hidden");
+      $(".downCompati").removeClass("hidden");
+
+      $(".upCompati").addClass("hidden");
+    }
+    dmg_calc();
   });
 
   // スムーズスクロール
