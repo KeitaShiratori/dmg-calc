@@ -1,0 +1,65 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "colors";
+
+.container {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.navbar-brand{
+  font-size:2.4em;
+}
+
+@media (min-width:768px){
+  .container{
+    width:100%
+  }
+  .navbar-brand{
+    font-size:3.2em;
+  }
+  .panel-heading{
+    font-size: 2.8em;
+    // font-size:42px;
+  }
+  p, label, button, input, .input{
+    font-size: 2.5em;
+    // font-size:36px;
+  }
+  .input{
+    padding: 0.8em 0.2em;
+    margin: 0.005em 0em;
+  }
+  .dmgToggle{
+    font-size:.5em;
+    margin: 7px;
+  }
+}
+
+@media (min-width:992px){
+  .panel-heading{
+    font-size: 1.4em; 
+  }
+  
+  p, label, button, input, .input{
+    font-size: 1.2em;
+  }
+  
+  .input{
+    padding: 0.8em 0.2em;
+    margin: 0.005em 0em;
+  }
+  
+  .dmgToggle{
+    margin: -3px;
+    font-size: .75em;
+  }
+}
+
+@media (min-width:1200px){
+  .container{
+    width:1170px
+  }
+}

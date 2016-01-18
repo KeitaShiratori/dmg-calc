@@ -1,0 +1,104 @@
+---
+ja:
+  application:
+    head:
+      title: ジョジョSS ダメージ計算電卓
+    navbar:
+      title: ジョジョSS ダメージ計算電卓
+  index:
+    calc:
+      header:
+        title: ユニット情報
+        dmg: ダメージ
+      form:
+        name: ユニット名
+        atk: ATK(アビスロ強化込み)
+        ability1: 加算アビ倍率
+        ability2: 乗算アビ倍率
+        ability3: スマッシュ加算アビ倍率
+        ability4: スマッシュ乗算アビ倍率
+        leader_skill: リーダースキル倍率
+        friend_skill: フレンドスキル倍率
+        placeholder:
+          name: 入力して下さい
+          atk:          数値 (初期値 = 10,000)
+          ability1:     数値 (初期値 = 0)
+          ability2:     数値 (初期値 = 1)
+          ability3:     数値 (初期値 = 0)
+          ability4:     数値 (初期値 = 1)
+          leader_skill: 数値 (初期値 = 1)
+          friend_skill: 数値 (初期値 = 1)
+      caption:
+        dmg_atk: = ATK(アビスロ強化込み) * リーダースキル * フレンドスキル
+        dmg_normal: = 基礎ATK * (1 + 加算アビ倍率) * 乗算アビ倍率
+        dmg_smash: = 通常ダメージ * (1.5 + スマッシュ加算アビ倍率) * スマッシュ乗算アビ倍率
+        
+        
+        
+  search:
+    user_or_microposts: ラウンドを検索
+  layouts:
+    home: ホーム
+    my_page: マイページ
+    rounds: ラウンド一覧
+    new_round: ラウンド登録
+    edit_round: ラウンド編集
+    round: ラウンド詳細
+    account: アカウント
+    settings: 設定
+    search: 検索
+    other_page: のページ
+    log_in: ログイン
+    log_out: ログアウト
+    sign_up: 新規ユーザ登録
+  users:
+    sign_up:
+      name: ユーザ名
+      email: ログイン用メールアドレス（非公開）
+      password: ログイン用パスワード
+      confirmation: パスワード確認
+      submit: 登録
+    log_in:
+      email: メールアドレス
+      password: パスワード
+      submit: ログイン
+      new_user : 新規ユーザ登録は
+      sign_up_now: コチラ
+    side_bar:
+      settings: 設定
+    now_on_round:
+      header_name: 開催中のラウンド
+      empty: 開催中のラウンドはありません
+    join_list:
+      tab_name: 参加予定のラウンド
+      empty: 参加予定のラウンドはありません
+    history_list:
+      tab_name: ラウンド履歴
+      empty: 参加したラウンドはありません
+    index:
+      users:
+        tab_name: ユーザ
+        no_item: 条件に一致するユーザが見つかりませんでした
+      microposts:
+        tab_name: つぶやき
+        no_item: 条件に一致する つぶやきが見つかりませんでした
+  rounds:
+    form:
+      description:
+        placeholder: 500文字以内
+    paticipate: このラウンドに参加する
+    unpaticipate: 
+      display: このラウンドに参加予定
+      delete: 参加予定を取り消す
+    end_logo: このラウンドは終了しました
+    tool:
+      zoom_up:  拡大
+      zoom_out: 縮小
+      score: ゲット
+      battle: バトル
+      reposition: 現在地を更新
+      rader_size: サイズ変更
+    show:
+      date: 開催日
+      time: 時刻
+      
