@@ -53,9 +53,11 @@
     <div class="panel panel-default">
       <div class="panel-heading">
         <%= I18n.t('index.calc.header.dmg') %>
-        <button class="btn btn-default pull-right dmgToggle">計算式表示切替</button>
-        <button class="btn btn-default pull-right downCompatiToggle">ニガテ属性</button>
-        <button class="btn btn-default pull-right upCompatiToggle">得意属性</button>
+        <span class="pull-right">
+          <button class="btn btn-default upCompatiToggle">得意属性</button>
+          <button class="btn btn-default downCompatiToggle">ニガテ属性</button>
+          <button class="btn btn-default dmgToggle displayed">計算式を隠す</button>
+        </span>
       </div>
       <div class="panel-body" >
         <p>
@@ -101,6 +103,15 @@
   var dmg_normal    = 0;
   var dmg_smash     = 0;
   var compatibility = 1;
+
+  function printProperties (obj) {
+    var prop, properties;
+    properties = '';
+    for (prop in obj) {
+      properties += prop + '=' + obj[prop] + '\n';
+    }
+    return alert(properties);
+  }
 
   function parseInput(element, defaultVal) {
     var ret = defaultVal;
@@ -150,8 +161,12 @@
   }
 
   $(document).ready( function(){
-  // ページ読み込み時に実行したい処理
+    // ページ読み込み時に実行したい処理
+    // ダメージのデフォルト値を表示
     dmg_calc();
+    
+    // ページ内の最初の入寮項目にフォーカス
+    $('input:visible').first().focus();
   });
 
   $('.input').change(function() {
@@ -160,9 +175,18 @@
 
   $(".dmgToggle").click(function(){
     $(".dmgCollapse").collapse('toggle');
+    
+    if ($(this).text() == "計算式を表示"){
+      $(this).text("計算式を隠す");
+    }else{
+      $(this).text("計算式を表示");
+    }
   });
 
   $(".upCompatiToggle").click(function(){
+    $(".upCompatiToggle").removeClass("on");
+    $(".downCompatiToggle").removeClass("on");
+
     if (compatibility == 1.5){
       compatibility = 1;
       $(".upCompati").addClass("hidden");
@@ -173,11 +197,15 @@
       $(".upCompati").removeClass("hidden");
 
       $(".downCompati").addClass("hidden");
+      $(".upCompatiToggle").addClass("on");
     }
     dmg_calc();
   });
 
   $(".downCompatiToggle").click(function(){
+    $(".upCompatiToggle").removeClass("on");
+    $(".downCompatiToggle").removeClass("on");
+
     if (compatibility == 2/3){
       compatibility = 1;
       $(".downCompati").addClass("hidden");
@@ -188,8 +216,29 @@
       $(".downCompati").removeClass("hidden");
 
       $(".upCompati").addClass("hidden");
+      $(".downCompatiToggle").addClass("on");
     }
     dmg_calc();
+  });
+  
+  $(function() {
+    $('input').bind("keydown", function(e) {
+        var n = $("input").length;
+        //13=エンターkeyです
+        if (e.which == 13)
+        {
+            e.preventDefault();
+            var nextIndex = $('input').index(this) + 1;
+            if(nextIndex < n) {
+                //次のやつにfocus        
+                $('input')[nextIndex].focus();
+            } else {
+                //最後のやつなので#login-btnをクリック        
+                $('input')[nextIndex-1].blur();
+                $('#login-btn').click();
+            }
+        }
+    });
   });
 
   // スムーズスクロール
