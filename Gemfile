@@ -22,6 +22,9 @@ gem 'bootstrap-sass', '~> 3.2.0'
 # font-awesome
 gem 'font-awesome-sass'
 
+# HTTP圧縮
+gem 'heroku-deflater', :group => :production
+
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
