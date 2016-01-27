@@ -28,6 +28,8 @@ ja:
           ability4:     数値 (初期値 = 1)
           leader_skill: 数値 (初期値 = 1)
           friend_skill: 数値 (初期値 = 1)
+          percent0:     数値 (初期値 = 0 %)
+          percent100:   数値 (初期値 = 100 %)
       caption:
         dmg_atk: = ATK(アビスロ強化込み) * リーダースキル * フレンドスキル
         dmg_normal: = 基礎ATK * (1 + 加算アビ倍率) * 乗算アビ倍率

@@ -4,6 +4,11 @@
     <div class="panel panel-default">
       <div class="panel-heading">
         <%= I18n.t('index.calc.header.title') %>
+        <!--入力モード切替ボタン。使い勝手が悪いからいったんコメントアウト-->
+        <!--<span class="pull-right">-->
+        <!--  <span id="percent-mode">％で入力</span>-->
+        <!--  <button class="btn btn-default percentToggle">入力切替</button>-->
+        <!--</span>-->
       </div>
       <div class="panel-body" >
         <div class="form-horizontal">
@@ -11,38 +16,38 @@
             <div class="form-group">
               <label class="control-label col-sm-6 col-md-5"><%= I18n.t('index.calc.form.name') %></label>
               <div class="col-sm-6 col-md-7">
-                <%= f.text_field :name, class:"form-control input", id:"name", placeholder: I18n.t('index.calc.form.placeholder.name') %>
+                <%= f.text_field :name, class:"form-control input", id:"name", placeholder: I18n.t('index.calc.form.placeholder.name'), maxlength: 20 %>
               </div>
             </div>
             <div class="form-group">
               <label class="control-label col-sm-6 col-md-5"><%= I18n.t('index.calc.form.atk') %></label>
               <div class="col-sm-6 col-md-7">
-                <%= f.text_field :name, class:"form-control input", id:"atk", placeholder: I18n.t('index.calc.form.placeholder.atk') %>
+                <%= f.text_field :name, class:"form-control input atk", id:"atk", placeholder: I18n.t('index.calc.form.placeholder.atk'), maxlength: 6 %>
               </div>
             </div>
             <div class="form-group">
               <label class="control-label col-sm-6 col-md-5"><%= I18n.t('index.calc.form.ability1') %></label>
-              <div class="col-sm-6 col-md-7"><%= f.text_field :name, class:"form-control input", id:"ability1", placeholder: I18n.t('index.calc.form.placeholder.ability1') %></div>
+              <div class="col-sm-6 col-md-7"><%= f.text_field :name, class:"form-control input ability1", id:"ability1", placeholder: I18n.t('index.calc.form.placeholder.ability1'), maxlength: 5 %></div>
             </div>
             <div class="form-group">
               <label class="control-label col-sm-6 col-md-5"><%= I18n.t('index.calc.form.ability2') %></label>
-              <div class="col-sm-6 col-md-7"><%= f.text_field :name, class:"form-control input", id:"ability2", placeholder: I18n.t('index.calc.form.placeholder.ability2') %></div>
+              <div class="col-sm-6 col-md-7"><%= f.text_field :name, class:"form-control input ability2", id:"ability2", placeholder: I18n.t('index.calc.form.placeholder.ability2'), maxlength: 5 %></div>
             </div>
             <div class="form-group">
               <label class="control-label col-sm-6 col-md-5"><%= I18n.t('index.calc.form.ability3') %></label>
-              <div class="col-sm-6 col-md-7"><%= f.text_field :name, class:"form-control input", id:"ability3", placeholder: I18n.t('index.calc.form.placeholder.ability3') %></div>
+              <div class="col-sm-6 col-md-7"><%= f.text_field :name, class:"form-control input ability3", id:"ability3", placeholder: I18n.t('index.calc.form.placeholder.ability3'), maxlength: 5 %></div>
             </div>
             <div class="form-group">
               <label class="control-label col-sm-6 col-md-5"><%= I18n.t('index.calc.form.ability4') %></label>
-              <div class="col-sm-6 col-md-7"><%= f.text_field :name, class:"form-control input", id:"ability4", placeholder: I18n.t('index.calc.form.placeholder.ability4') %></div>
+              <div class="col-sm-6 col-md-7"><%= f.text_field :name, class:"form-control input ability4", id:"ability4", placeholder: I18n.t('index.calc.form.placeholder.ability4'), maxlength: 5 %></div>
             </div>
             <div class="form-group">
               <label class="control-label col-sm-6 col-md-5"><%= I18n.t('index.calc.form.leader_skill') %></label>
-              <div class="col-sm-6 col-md-7"><%= f.text_field :name, class:"form-control input", id:"leader_skill", placeholder: I18n.t('index.calc.form.placeholder.leader_skill') %></div>
+              <div class="col-sm-6 col-md-7"><%= f.text_field :name, class:"form-control input", id:"leader_skill", placeholder: I18n.t('index.calc.form.placeholder.leader_skill'), maxlength: 5 %></div>
             </div>
             <div class="form-group">
               <label class="control-label col-sm-6 col-md-5"><%= I18n.t('index.calc.form.friend_skill') %></label>
-              <div class="col-sm-6 col-md-7"><%= f.text_field :name, class:"form-control input", id:"friend_skill", placeholder: I18n.t('index.calc.form.placeholder.friend_skill') %></div>
+              <div class="col-sm-6 col-md-7"><%= f.text_field :name, class:"form-control input", id:"friend_skill", placeholder: I18n.t('index.calc.form.placeholder.friend_skill'), maxlength: 5 %></div>
             </div>
           <% end %>
         </div>
@@ -73,7 +78,7 @@
         </p>
         <div class="collapse in dmgCollapse">
           <p class="caption"> <%= I18n.t('index.calc.caption.dmg_normal') %><span class="compati hidden"> * 属性相性</span></p>
-          <p class="caption"> = <span class="dmg-atk">10,000</span> * (1 + <span class="ability1">0</span>) * <span class="ability2">1</span><span class="upCompati hidden"> * 1.5</span><span class="downCompati hidden"> / 1.5</span></p>
+          <p class="caption"> = <span class="dmg-atk">10,000</span> * (1 + <span class="ability1">0</span>) * <span class="ability2">1</span><span class="upCompati hidden"> * 1.5</span><span class="downCompati hidden"> * 0.7</span></p>
           <br>
         </div>
         <p>
@@ -89,8 +94,6 @@
   </div>
 </div>
 
-
-
 <script>
   var atk           = 10000;
   var ability1      = 0;
@@ -103,6 +106,7 @@
   var dmg_normal    = 0;
   var dmg_smash     = 0;
   var compatibility = 1;
+  var parcent_teisu = 1;
 
   function printProperties (obj) {
     var prop, properties;
@@ -140,6 +144,28 @@
     leader_skill = parseInput('#leader_skill', 1);
     friend_skill = parseInput('#friend_skill', 1);
 
+    // 入力モード切替用の処理
+    // 使い勝手が悪いからいったんコメントアウトする。
+    // ability1 = ability1 * parcent_teisu;
+    
+    // if(ability2 != 1 && parcent_teisu != 1){
+    //   ability2 = ability2 * parcent_teisu;
+    // }
+
+    // ability3 = ability3 * parcent_teisu;
+
+    // if(ability4 != 1 && parcent_teisu != 1){
+    //   ability4 = ability4 * parcent_teisu;
+    // }
+
+    // if(leader_skill != 1 && parcent_teisu != 1){
+    //   leader_skill = leader_skill * parcent_teisu + 1;
+    // }
+
+    // if(friend_skill != 1 && parcent_teisu != 1){
+    //   friend_skill = friend_skill * parcent_teisu + 1;
+    // }
+
     dmg_atk = atk * leader_skill * friend_skill;
     dmg_normal = dmg_atk * (1 + ability1) * ability2 * compatibility;
     dmg_smash = dmg_normal * (1.5 + ability3) * ability4;
@@ -172,6 +198,34 @@
   $('.input').change(function() {
     dmg_calc();
   });
+
+  // 入力モード切替用の処理
+  // 使い勝手が悪いのでいったんコメントアウト
+  // $(".percentToggle").click(function(){
+  //   if ($("#percent-mode").text() == "％で入力"){
+  //     $("#percent-mode").text("小数で入力");
+  //     parcent_teisu = 1;
+      
+  //     $("#ability1").attr('placeholder', "<%= I18n.t('index.calc.form.placeholder.ability1') %>");
+  //     $("#ability2").attr('placeholder', "<%= I18n.t('index.calc.form.placeholder.ability2') %>");
+  //     $("#ability3").attr('placeholder', "<%= I18n.t('index.calc.form.placeholder.ability3') %>");
+  //     $("#ability4").attr('placeholder', "<%= I18n.t('index.calc.form.placeholder.ability4') %>");
+  //     $("#leader_skill").attr('placeholder', "<%= I18n.t('index.calc.form.placeholder.leader_skill') %>");
+  //     $("#friend_skill").attr('placeholder', "<%= I18n.t('index.calc.form.placeholder.friend_skill') %>");
+  //   }else{
+  //     $("#percent-mode").text("％で入力");
+  //     parcent_teisu = 0.01;
+
+  //     $("#ability1").attr('placeholder', "<%= I18n.t('index.calc.form.placeholder.percent0') %>");
+  //     $("#ability2").attr('placeholder', "<%= I18n.t('index.calc.form.placeholder.percent100') %>");
+  //     $("#ability3").attr('placeholder', "<%= I18n.t('index.calc.form.placeholder.percent0') %>");
+  //     $("#ability4").attr('placeholder', "<%= I18n.t('index.calc.form.placeholder.percent100') %>");
+  //     $("#leader_skill").attr('placeholder', "<%= I18n.t('index.calc.form.placeholder.percent0') %>");
+  //     $("#friend_skill").attr('placeholder', "<%= I18n.t('index.calc.form.placeholder.percent0') %>");
+  //   }
+    
+  //   dmg_calc();
+  // });
 
   $(".dmgToggle").click(function(){
     $(".dmgCollapse").collapse('toggle');
@@ -206,12 +260,12 @@
     $(".upCompatiToggle").removeClass("on");
     $(".downCompatiToggle").removeClass("on");
 
-    if (compatibility == 2/3){
+    if (compatibility == 0.7){
       compatibility = 1;
       $(".downCompati").addClass("hidden");
       $(".compati").addClass("hidden");
     } else{
-      compatibility = 2/3;
+      compatibility = 0.7;
       $(".compati").removeClass("hidden");
       $(".downCompati").removeClass("hidden");
 
